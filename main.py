@@ -213,14 +213,28 @@ def scrape_courses(query, degree_types=None, languages=None, start_periods=None,
 
     return course_data
 
-
 def export_to_csv(course_data, file_path=None):
     """Export course data to a CSV file or return as string"""
     if not course_data:
         return "" if file_path is None else False
         
     try:
-        keys = list(course_data[0].keys())
+        keys = [
+            "Course URL",
+            "University Name",
+            "Degree",
+            "Course Location",
+            "Teaching Language",
+            "Full-time / Part-time",
+            "Programme Duration",
+            "Beginning",
+            "Application Deadline",
+            "Tuition Fees",
+            "Academic Requirements",
+            "Language Requirements",
+            "Submit Application To",
+            "Course Website"
+        ]
         
         # If file_path is provided, write to file
         if file_path:
@@ -229,7 +243,6 @@ def export_to_csv(course_data, file_path=None):
                 writer.writeheader()
                 writer.writerows(course_data)
             return True
-        # Otherwise return CSV as string
         else:
             output = io.StringIO()
             writer = csv.DictWriter(output, fieldnames=keys)
